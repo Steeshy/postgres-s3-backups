@@ -14,7 +14,7 @@ RUN npm ci && \
     npm run build && \
     npm prune --production
 
-FROM node:${NODE_VERSION}-alpine
+FROM node:${NODE_VERSION}-alpine3.21
 
 WORKDIR /app
 
