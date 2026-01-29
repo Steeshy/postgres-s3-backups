@@ -26,6 +26,9 @@ ARG PG_VERSION='16'
 
 RUN apk add --update --no-cache postgresql${PG_VERSION}-client
 
-CMD pg_isready --dbname=$BACKUP_DATABASE_URL && \
-    pg_dump --version && \
-    node dist/index.js
+RUN apk add --no-cache curl                                                                                                     
+                                                                                                                                  
+CMD pg_isready --dbname=$BACKUP_DATABASE_URL && \                                                                               
+    pg_dump --version && \                                                                                                      
+    node dist/index.js && \                                                                                                     
+    curl -fsS -m 10 --retry 5 -o /dev/null $HEALTHCHECK_URL
